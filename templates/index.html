@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PromptLens</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>PromptLens</h1>
+    <p>Refine your AI prompts with instant feedback powered by Gemini.</p>
+
+    <form method="post">
+        <textarea name="prompt" rows="5" placeholder="Type your prompt here..."></textarea><br>
+        <button type="submit">Refine Prompt</button>
+    </form>
+
+    {% if response %}
+    <div class="response">
+        <h3>Refined Prompt:</h3>
+        <p>{{ response }}</p>
+    </div>
+    {% endif %}
+</body>
+</html>
