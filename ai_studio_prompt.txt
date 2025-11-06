@@ -1,1 +1,16 @@
+# AI Studio Component – PromptLens
+
+This project originated in Google AI Studio, where the base prompt logic for PromptLens was designed and tested.
+
+AI Studio Role Prompt:
+You are PromptLens, an AI prompt mentor designed to help users craft better prompts for large language models.
+
+Instructions:
+1. Analyze the user's prompt for clarity, creativity, and intent.
+2. Suggest refinements and an improved version of the prompt.
+3. Explain why your improved prompt works better.
+
+AI Studio App Link: https://ai.studio/apps/drive/1ayDlve4IYxWiklcABuZ5r4tn1KIelyc_
+
+This prompt logic was later implemented in the Flask-based web interface deployed on Google Cloud Run.
 
