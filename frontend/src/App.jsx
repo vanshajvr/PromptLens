@@ -20,9 +20,13 @@ function App() {
         body: JSON.stringify({ userPrompt: input }),
       });
       const data = await response.json();
-      if (data.error) throw new Error(data.error);
-      const aiMsg = { sender: "ai", text: data.output || "No response received." };
-      setMessages((prev) => [...prev, aiMsg]);
+      // If backend returned an error field, display it to the user instead of a generic message
+      if (data.error) {
+        setMessages((prev) => [...prev, { sender: "ai", text: data.error }]);
+      } else {
+        const aiMsg = { sender: "ai", text: data.output || "No response received." };
+        setMessages((prev) => [...prev, aiMsg]);
+      }
     } catch (error) {
       setMessages((prev) => [...prev, { sender: "ai", text: "Error fetching response ❌" }]);
     } finally {

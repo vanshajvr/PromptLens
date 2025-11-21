@@ -42,13 +42,25 @@ app.post("/api/prompt", async (req, res) => {
       }
     );
 
+    // If HF returns non-2xx (HTML or text), capture and forward the message
+    if (!response.ok) {
+      const text = await response.text().catch(() => "(no body)");
+      console.error("Hugging Face error", response.status, text);
+      return res.status(502).json({ error: `Hugging Face error: ${response.status} ${text}` });
+    }
+
     const data = await response.json();
 
     let output = "No response received.";
+    // Router may return different shapes; try common patterns
     if (Array.isArray(data) && data[0]?.generated_text) {
       output = data[0].generated_text;
+    } else if (data.generated_text) {
+      output = data.generated_text;
     } else if (data.error) {
       output = `Error: ${data.error}`;
+    } else if (typeof data === "string") {
+      output = data;
     }
 
     res.json({ output });
