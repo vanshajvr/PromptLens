@@ -31,7 +31,7 @@ app.post("/api/prompt", async (req, res) => {
     const { userPrompt } = req.body;
 
     const response = await fetch(
-      "https://api-inference.huggingface.co/models/microsoft/Phi-3-mini-4k-instruct",
+      "https://router.huggingface.co/models/microsoft/Phi-3-mini-4k-instruct",
       {
         headers: {
           Authorization: `Bearer ${process.env.HF_TOKEN}`,
