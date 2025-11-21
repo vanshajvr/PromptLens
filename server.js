@@ -1,13 +1,25 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import fetch from "node-fetch";
+import helmet from "helmet";
+import rateLimit from "express-rate-limit";
 
 dotenv.config();
 
 const app = express();
-app.use(cors());
-app.use(express.json());
+
+// Security middlewares
+app.use(helmet());
+const allowedOrigin = process.env.FRONTEND_ORIGIN || "*";
+app.use(cors({ origin: allowedOrigin }));
+app.use(express.json({ limit: "1mb" }));
+
+// Basic rate limiter for public endpoints
+const limiter = rateLimit({
+  windowMs: 60 * 1000, // 1 minute
+  max: 30, // limit each IP to 30 requests per windowMs
+});
+app.use(limiter);
 
 app.get("/", (req, res) => {
   res.send("Hello Vansh, your backend is alive ⚡");
